@@ -5,8 +5,18 @@
 #include <pthread.h>
 #include <stdlib.h>
 
+typedef struct s_arg
+{
+	int philo;
+	int t_die;
+	int t_eat;
+	int t_sleep;
+	int t_p_eat;
+}t_arg;
 
-int	ft_atoi(const char *str);
-void parsing(char **av, int ac);
+long	ft_atoi(const char *str, t_arg *philo);
+void parsing(char **av, int ac, t_arg *philo);
+int	ft_isdigit(int c);
+
 
 #endif

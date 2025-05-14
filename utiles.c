@@ -1,10 +1,17 @@
 #include "philo.h"
 
-int	ft_atoi(const char *str)
+int	ft_isdigit(int c)
+{
+	if (c >= 48 && c <= 57)
+		return (1);
+	return (0);
+}
+
+long	ft_atoi(const char *str, t_arg *philo)
 {
 	int	i;
 	int	j;
-	int	nb;
+	long	nb;
 
 	if(!str)
 		return (0);
@@ -23,6 +30,12 @@ int	ft_atoi(const char *str)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		nb = (nb * 10) + (str[i] - 48);
+		if (nb > 2147483647)
+		{
+			write(1, "ERROR\n", 6);
+			free(philo);
+			exit(1);
+		}
 		i++;
 	}
 	return (nb * j);
