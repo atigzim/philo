@@ -2,7 +2,7 @@
 
 int	ft_isdigit(int c)
 {
-	if (c >= 48 && c <= 57)
+	if ((c >= 48 && c <= 57) || c == 32)
 		return (1);
 	return (0);
 }
@@ -30,9 +30,9 @@ long	ft_atoi(const char *str, t_arg *philo)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		nb = (nb * 10) + (str[i] - 48);
-		if (nb > 2147483647)
+		if (nb <= 0 || nb > 2147483647)
 		{
-			write(1, "ERROR\n", 6);
+			write(2, "ERROR\n", 6);
 			free(philo);
 			exit(1);
 		}

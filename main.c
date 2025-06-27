@@ -9,7 +9,7 @@ void parsing(char **av, int ac, t_arg *philo)
 	j = 0;
 	if(ac - 1 > 5 || ac -1 < 4)
 	{
-		write(1, "ERROR\n", 6);
+		write(2, "ERROR\n", 6);
 		free(philo);
 		exit(1);
 	}
@@ -22,7 +22,7 @@ void parsing(char **av, int ac, t_arg *philo)
 				j++;
 			if(ft_isdigit(av[i][j]) == 0)
 			{
-				write(1, "ERROR\n", 6);
+				write(2, "ERROR\n", 6);
 				free(philo);
 				exit(1);
 			}
