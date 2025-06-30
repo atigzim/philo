@@ -1,61 +1,46 @@
 #include "philo.h"
 
-void parsing(char **av, int ac, t_arg *philo)
+
+void init(t_philo *fork)
 {
 	int	i;
-	int	j;
+	t_rules *rules;
 
-	i = 1;
-	j = 0;
-	if (ac - 1 > 5 || ac -1 < 4)
+	rules = fork->rules;
+	rules->forks = malloc(sizeof(pthread_mutex_t) * rules->nb_philo);
+	if(!rules->forks)
+		return ;
+	while (i < rules->nb_philo)
 	{
-		write(2, "ERROR\n", 6);
-		free(philo);
-		exit(1);
-	}
-	while (av[i])
-	{
-		j = 0;
-		while (av[i][j])
-		{
-			if (av[i][j] == '+')
-				j++;
-			if (ft_isdigit(av[i][j]) == 0)
-			{
-				write(2, "ERROR\n", 6);
-				free(philo);
-				exit(1);
-			}
-			j++;
-		}
+		if (pthread_mutex_init(&rules->forks[i], NULL) != 0)
+			return (0);
 		i++;
 	}
-	philo->num_philo = ft_atoi(av[1], philo);
-	philo->t_die = ft_atoi(av[2], philo);
-	philo->t_eat = ft_atoi(av[3], philo);
-	philo->t_sleep = ft_atoi(av[4], philo);
-	if(ac - 1 ==  5)
-		philo->max_meals = ft_atoi(av[5], philo);
-}
+	if (pthread_mutex_init(&rules->write_lock, NULL) != 0)
+		return (0);
+	rules->someone_died = 0;
 
-
-
-// void init(t_philo *fork)
-// {
-// 	int i = 0;
-// 	while ()
-// 	{
+	i = 0;
+	while (i < rules->nb_philo)
+	{
+		fork->id =i ;
+		fork->meals_eaten = 0;
+		fork->last_meal = ;
+		fork->rules = rules;
+		fork->left_fork = &rules->forks[i];
+		fork
 		
-// 	}
+	}
 	
-
-// 	fork->left_fork = 
-// }
+}
 int main(int ac, char **av)
 {
-	t_arg *philo;
+	t_philo *philo;
 
-	philo = malloc(sizeof(t_arg));
+	philo = NULL;
+	philo = malloc(sizeof(t_philo));
+	memset(philo, 0, sizeof(t_philo));
 	parsing(av, ac, philo);
+	free(philo->rules);
 	free(philo);
 }

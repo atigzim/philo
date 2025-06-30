@@ -7,7 +7,7 @@ int	ft_isdigit(int c)
 	return (0);
 }
 
-long	ft_atoi(const char *str, t_arg *philo)
+long	ft_atoi(const char *str, t_rules *philo)
 {
 	int	i;
 	int	j;
