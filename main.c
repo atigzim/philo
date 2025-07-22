@@ -1,24 +1,34 @@
 #include "philo.h"
 
-void *my_routine()
-{ 
-	t_philo *philo;
-	
-	if (philo.)
-} 
-void creat_therad (t_philo *phelo)
-{
-	int i;
+// void *my_routine(void *arg)
+// {
+// 	t_philo *philo = (t_philo *)arg;
 
-	i = 0;
-	while (i < phelo->rules->nb_philo)
-	{
-		if(pthread_create(phelo->thread,NULL, my_routine,phelo) != 0)
-			perror("errore create");
-		i++;
-	}
+//     pthread_mutex_lock(&philo->rules->write_lock);
+// 	printf("Philosopher %d is thinking...\n", philo->rules->nb_philo);
+//     pthread_mutex_unlock(&philo->rules->write_lock);
+// 	return NULL;
+// }
+
+// void creat_therad (t_philo *phelo)
+// {
+// 	int i;
+
+// 	i = 0;
+// 	while (i < phelo->rules->nb_philo)
+// 	{
+// 		if(pthread_create(&phelo->thread,NULL, my_routine, phelo) != 0)
+// 			perror("errore create");
+// 		i++;
+// 	}
+// 	i = 0;
+// 	while (i < phelo->rules->nb_philo)
+// 	{
+// 		pthread_join(phelo->thread, NULL);
+// 		i++;
+// 	}
 	
-}
+// }
 void init(t_philo *fork)
 {
 	int	i;
@@ -42,7 +52,7 @@ void init(t_philo *fork)
 	i = 0;
 	while (i < rules->nb_philo)
 	{
-		fork->id =i ;
+		fork->id =i + 1;
 		fork->meals_eaten = 0;
 		fork->last_meal = 0;
 		fork->rules = rules;
@@ -61,6 +71,7 @@ int main(int ac, char **av)
 	memset(philo, 0, sizeof(t_philo));
 	parsing(av, ac, philo);
 	init(philo);
+	// creat_therad(philo);
 	free(philo->rules);
 	free(philo);
 }

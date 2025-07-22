@@ -6,6 +6,12 @@ int	ft_isdigit(int c)
 		return (1);
 	return (0);
 }
+void write_err(t_rules *philo)
+{
+	write(2, "ERROR\n", 6);
+	free(philo);
+	exit(1);
+}
 
 long	ft_atoi(const char *str, t_rules *philo)
 {
@@ -30,13 +36,11 @@ long	ft_atoi(const char *str, t_rules *philo)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		nb = (nb * 10) + (str[i] - 48);
-		if (nb <= 0 || nb > 2147483647)
-		{
-			write(2, "ERROR\n", 6);
-			free(philo);
-			exit(1);
-		}
+		if (nb < 0 || nb > 2147483647)
+			write_err(philo);
 		i++;
 	}
+	if(nb == 0)
+		write_err(philo);
 	return (nb * j);
 }
