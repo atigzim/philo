@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 02:07:36 by atigzim           #+#    #+#             */
-/*   Updated: 2025/07/23 22:28:35 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/07/23 22:29:46 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,5 @@ void parsing(char **av, int ac, t_rules *philo);
 int	ft_isdigit(int c);
 void write_err(t_rules *philo);
 void init_all(t_rules *arg);
-
 
 #endif
