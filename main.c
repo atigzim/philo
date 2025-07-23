@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 01:44:54 by atigzim           #+#    #+#             */
-/*   Updated: 2025/07/23 02:41:23 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/07/23 19:53:53 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,50 @@ void	init(t_philo *philo)
 	}
 }
 
+void loop_init(t_rules *arg)
+{
+	int	i;
+
+	i = 0;
+	while (i < arg->nb_philo)
+	{
+		arg->philo->id = 0;
+		arg->philo->meals_eaten = 0;
+		arg->philo->last_meal = 0;
+		arg->philo->rules = rules;
+		arg->philo->left_fork = &rules->forks[i];
+		arg->philo->right_fork = &rules->forks[(i + 1) % philo->nb_philo];
+	}
+	
+}
+
+void init(t_rules *arg)
+{
+	int		i;
+	
+	i = 0;
+	arg->forks = malloc(sizeof(pthread_mutex_t) * arg->nb_philo);
+	if (!arg->forks)
+		return ;
+	while (i < arg->nb_philo)
+	{
+		if (pthread_mutex_init(&arg->forks[i], NULL) != 0)
+			return ;
+		i++;
+	}
+	
+	
+	
+}
+
 int main(int ac, char **av)
 {
-	t_philo	*philo;
+	t_rules	*arg;
 
-	philo = NULL;
-	philo = malloc(sizeof(t_philo));
-	memset(philo, 0, sizeof(t_philo));
-	parsing(av, ac, philo);
-	init(philo);
-	printf("--------%d\n", philo->id);
-	free(philo->rules);
-	free(philo);
+	arg = malloc(sizeof(t_rules));
+	memset(arg, 0, sizeof(t_rules));
+	parsing(av, ac, arg);
+	init(arg);
+	// free(arg->r);
+	free(arg);
 }

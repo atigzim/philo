@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 01:45:12 by atigzim           #+#    #+#             */
-/*   Updated: 2025/07/23 02:02:37 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/07/23 05:18:22 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	ft_isdigit(int c)
 		return (1);
 	return (0);
 }
+
 void write_err(t_rules *philo)
 {
 	write(2, "ERROR\n", 6);
