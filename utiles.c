@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 01:45:12 by atigzim           #+#    #+#             */
-/*   Updated: 2025/07/23 22:37:35 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/07/24 00:37:23 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,13 @@ void	write_err(t_rules	*philo)
 	write(2, "ERROR\n", 6);
 	free(philo);
 	exit(1);
+}
+
+long get_time_ms(void)
+{
+	struct timeval time;
+	gettimeofday(&time, NULL);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
 int	ft_atoi(const char *str, t_rules *philo)

@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 02:07:36 by atigzim           #+#    #+#             */
-/*   Updated: 2025/07/23 22:33:47 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/07/24 00:34:12 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+# include <sys/time.h> 
 
 typedef struct s_philo
 {
 	int				id;
 	int				meals_eaten;
 	long			last_meal;
+	long 			start_time;
 	struct s_rules	*arg;
 	pthread_t		thread;
 	pthread_mutex_t	*left_fork;
@@ -48,5 +50,6 @@ void				parsing(char **av, int ac, t_rules *philo);
 int					ft_isdigit(int c);
 void				write_err(t_rules *philo);
 void				init_all(t_rules *arg);
+long 				get_time_ms(void);
 
 #endif
