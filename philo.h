@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/23 01:45:08 by atigzim           #+#    #+#             */
-/*   Updated: 2025/07/23 02:02:56 by atigzim          ###   ########.fr       */
+/*   Created: 2025/07/23 02:07:36 by atigzim           #+#    #+#             */
+/*   Updated: 2025/07/23 03:12:45 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_rules {
 } t_rules;
 
 typedef struct s_philo {
+	
 	int id;
 	int meals_eaten;
 	long last_meal;
