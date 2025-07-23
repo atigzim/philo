@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/23 01:45:08 by atigzim           #+#    #+#             */
+/*   Updated: 2025/07/23 02:02:56 by atigzim          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_H
 # define PHILO_H
 #include <unistd.h>
@@ -29,10 +41,10 @@ typedef struct s_philo {
 } t_philo;
 
 
-
-long	ft_atoi(const char *str, t_rules *philo);
+int	ft_atoi(const char *str, t_rules *philo);
 void parsing(char **av, int ac, t_philo *philo);
 int	ft_isdigit(int c);
+void write_err(t_rules *philo);
 
 
 #endif

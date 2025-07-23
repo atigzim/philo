@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utiles.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/23 01:45:12 by atigzim           #+#    #+#             */
+/*   Updated: 2025/07/23 02:02:37 by atigzim          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 int	ft_isdigit(int c)
@@ -13,10 +25,9 @@ void write_err(t_rules *philo)
 	exit(1);
 }
 
-long	ft_atoi(const char *str, t_rules *philo)
+int	ft_atoi(const char *str, t_rules *philo)
 {
-	int	i;
-	int	j;
+	int (i), (j);
 	long	nb;
 
 	if(!str)
@@ -42,5 +53,5 @@ long	ft_atoi(const char *str, t_rules *philo)
 	}
 	if(nb == 0)
 		write_err(philo);
-	return (nb * j);
+	return ((int)(nb * j));
 }
