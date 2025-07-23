@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 02:07:36 by atigzim           #+#    #+#             */
-/*   Updated: 2025/07/23 19:57:03 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/07/23 22:28:35 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ typedef struct s_philo {
 	int id;
 	int meals_eaten;
 	long last_meal;
+	struct s_rules *arg;
 	pthread_t thread;
-	pthread_mutex_t left_fork;
+	pthread_mutex_t *left_fork;
 	pthread_mutex_t *right_fork;
 } t_philo;
 
@@ -46,6 +47,7 @@ int	ft_atoi(const char *str, t_rules *philo);
 void parsing(char **av, int ac, t_rules *philo);
 int	ft_isdigit(int c);
 void write_err(t_rules *philo);
+void init_all(t_rules *arg);
 
 
 #endif
