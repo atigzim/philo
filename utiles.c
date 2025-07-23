@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 01:45:12 by atigzim           #+#    #+#             */
-/*   Updated: 2025/07/23 05:18:22 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/07/23 22:37:35 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_isdigit(int c)
 	return (0);
 }
 
-void write_err(t_rules *philo)
+void	write_err(t_rules	*philo)
 {
 	write(2, "ERROR\n", 6);
 	free(philo);
@@ -28,10 +28,10 @@ void write_err(t_rules *philo)
 
 int	ft_atoi(const char *str, t_rules *philo)
 {
-	int (i), (j);
 	long	nb;
 
-	if(!str)
+	int (i), (j);
+	if (!str)
 		return (0);
 	i = 0;
 	j = 1;
@@ -52,7 +52,7 @@ int	ft_atoi(const char *str, t_rules *philo)
 			write_err(philo);
 		i++;
 	}
-	if(nb == 0)
+	if (nb == 0)
 		write_err(philo);
 	return ((int)(nb * j));
 }

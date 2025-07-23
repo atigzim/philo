@@ -6,12 +6,13 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 01:44:43 by atigzim           #+#    #+#             */
-/*   Updated: 2025/07/23 18:48:30 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/07/23 22:39:21 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-void parsing(char **av, int ac, t_rules *arg)
+
+void	parsing(char **av, int ac, t_rules *arg)
 {
 	int (i), (j);
 	i = 1;
@@ -35,6 +36,6 @@ void parsing(char **av, int ac, t_rules *arg)
 	arg->t_die = ft_atoi(av[2], arg);
 	arg->t_eat = ft_atoi(av[3], arg);
 	arg->t_sleep = ft_atoi(av[4], arg);
-	if(ac - 1 ==  5)
+	if (--ac == 5)
 		arg->must_eat = ft_atoi(av[5], arg);
 }
