@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 02:07:36 by atigzim           #+#    #+#             */
-/*   Updated: 2025/07/24 00:34:12 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/07/25 05:11:45 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+# include <limits.h>
 # include <sys/time.h> 
 
 typedef struct s_philo
