@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 01:44:43 by atigzim           #+#    #+#             */
-/*   Updated: 2025/07/24 00:37:01 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/07/26 23:31:28 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ void	init_all(t_rules *arg)
 	t_philo	*philo;
 
 	i = 0;
-	arg->forks = malloc(sizeof(pthread_mutex_t) * arg->nb_philo);
-	philo = malloc(sizeof(t_philo) * arg->nb_philo);
+	arg->forks = malloc(sizeof(pthread_mutex_t) * (arg->nb_philo + 1));
+	philo = malloc(sizeof(t_philo) * (arg->nb_philo + 1));
 	if (!arg->forks || !philo)
 		return ;
 	while (i < arg->nb_philo)

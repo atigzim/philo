@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 01:44:54 by atigzim           #+#    #+#             */
-/*   Updated: 2025/07/26 20:41:34 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/07/26 23:38:02 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void eating(t_philo *philo)
 	pthread_mutex_unlock(&philo->arg->write_lock);
 	printf("%d %s\n", philo->id, "eating");
 	usleep(philo->arg->t_eat * 1000);
+	philo->last_meal = get_time_ms() - philo->start_time;
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_unlock(philo->left_fork);
 }
@@ -72,6 +73,43 @@ void *routine(void *arg)
 	return (NULL);
 }
 
+void *routine_monitor(void *arg)
+{
+	t_philo *monitor;
+	long time;
+
+	monitor = (t_philo *)arg;
+	while (1)
+	{
+		time = get_time_ms() - monitor->last_meal;
+		printf("------%d-----\n", monitor->arg->t_die);
+		printf("------%ld-----\n", time);
+		if (time >= monitor->arg->nb_philo * 1000)	
+		{
+			pthread_mutex_lock(&monitor->arg->write_lock);
+			printf("%ld %d %s\n", time, monitor->id, "is died");
+			return (NULL);
+		}
+		printf("hh1234567890345678903456789045678904567895678hhhhh\n");
+	}
+	return (NULL);
+}
+
+void monitor(t_philo *monitor, int i)
+{
+	printf("%d\n", i);
+	if ((pthread_create(&monitor[i].thread, NULL, routine_monitor, &monitor[i])))
+	{
+		printf("Failed to create thread for monitor \n");
+			return ;
+	}
+	if ((pthread_join(monitor[i].thread, NULL)) != 0)
+	{
+		printf("Failed to join thread for monitor \n");
+		return ;
+	}
+}
+
 void	create_thread(t_rules *arg)
 {
 	int i;
@@ -89,44 +127,15 @@ void	create_thread(t_rules *arg)
 		}
 		i++;
 	}
-	
-	if ((pthread_join(philo[--i].thread, NULL)) != 0)
-	{
-		printf("Failed to join thread for philo %d\n", i + 1);
-		return ;
-	}
+	monitor(philo, i);
+	// if ((pthread_join(philo[--i].thread, NULL)) != 0)
+	// {
+	// 	printf("Failed to join thread for philo %d\n", i + 1);
+	// 	return ;
+	// }
 		
 }
-void routine_monitor(void *arg)
-{
-	t_philo *monitor;
-	long time;
 
-	monitor = (t_philo *)arg;
-	while (1)
-	{
-		time = get_time_ms() - monitor->start_time;
-		if (time >= monitor->arg->t_die * 1000)	
-		{
-			pthread_mutex_init(monitor->arg->write_lock);
-			printf("")
-		}
-	}
-	
-	
-}
-
-void monitor(t_philo *monitor, int i)
-{
-	// t_rules *arg;
-
-	if ((pthread_create(&monitor[i].thread, NULL, routine_monitor, &monitor[i])))
-	{
-		printf("Failed to create thread for monitor \n");
-			return ;
-	}
-	
-}
 
 int	main(int ac, char **av)
 {
@@ -137,5 +146,6 @@ int	main(int ac, char **av)
 	parsing(av, ac, arg);
 	init_all(arg);
 	create_thread(arg);
+	// monitor()
 	free(arg);
 }
