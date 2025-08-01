@@ -39,6 +39,7 @@ void				parsing(char **av, int ac, t_rules *philo);
 int					ft_isdigit(int c);
 void				write_err(t_rules *philo);
 void				init_all(t_rules *arg);
-// long 				get_time_ms(void);
+long 				get_time_ms(void);
+void 				print_message(int id, t_philo *philo, char *str);
 
 #endif

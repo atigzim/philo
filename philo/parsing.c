@@ -5,7 +5,7 @@ void	parsing(char **av, int ac, t_rules *arg)
 	int (i), (j);
 	i = 1;
 	j = 0;
-	if (ac - 1 > 5 || ac -1 < 4)
+	if (ac - 1 > 5 || ac - 1 < 4)
 		write_err(arg);
 	while (av[i])
 	{
@@ -37,7 +37,7 @@ void	loop_init(t_rules *arg, t_philo *philo)
 	{
 		philo[i].id = i + 1;
 		philo[i].meals_eaten = 0;
-		philo[i].last_meal = 0;
+		philo[i].last_meal = get_time_ms();
 		philo[i].left_fork = &arg->forks[i];
 		philo[i].right_fork = &arg->forks[(i + 1) % arg->nb_philo];
 		philo[i].arg = arg;
