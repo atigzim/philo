@@ -47,26 +47,26 @@ typedef struct s_rules
 	pthread_mutex_t	death;
 }					t_rules;
 
- //   -----------------  parsing of  my programme -----------------  //
-//   ------------------------------------------------------------   //  
+//   -----------------  parsing of  my programme -----------------  //
+//   ------------------------------------------------------------   //
 
 void				parsing(char **av, int ac, t_rules *philo);
 int					ft_atoi(const char *str, t_rules *philo, long nb);
 int					ft_isdigit(int c);
 void				write_err(t_rules *philo);
 
- //  -----------------  init_all -----------------------------  //
+//  -----------------  init_all -----------------------------  //
 //   ---------------------------------------------------------  //
 
 void				init_all(t_rules *arg);
 long				get_time_ms(void);
 void				print_message(t_philo *philo, char *str);
 
- //   -----------------  routine of  my philo -----------------  //
+//   -----------------  routine of  my philo -----------------  //
 //   ---------------------------------------------------------  //
-void	*routine(void *arg);
-void	eating(t_philo *philo);
-void	sleeping(t_philo *philo);
-void	thinking(t_philo *philo);
+void				*routine(void *arg);
+void				eating(t_philo *philo);
+void				sleeping(t_philo *philo);
+void				thinking(t_philo *philo);
 
 #endif
