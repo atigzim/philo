@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/02 13:14:14 by atigzim           #+#    #+#             */
+/*   Updated: 2025/08/02 13:15:46 by atigzim          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 void	parsing(char **av, int ac, t_rules *arg)
@@ -20,12 +32,12 @@ void	parsing(char **av, int ac, t_rules *arg)
 		}
 		i++;
 	}
-	arg->nb_philo = ft_atoi(av[1], arg);
-	arg->t_die = ft_atoi(av[2], arg);
-	arg->t_eat = ft_atoi(av[3], arg);
-	arg->t_sleep = ft_atoi(av[4], arg);
+	arg->nb_philo = ft_atoi(av[1], arg, 0);
+	arg->t_die = ft_atoi(av[2], arg, 0);
+	arg->t_eat = ft_atoi(av[3], arg, 0);
+	arg->t_sleep = ft_atoi(av[4], arg, 0);
 	if (--ac == 5)
-		arg->must_eat = ft_atoi(av[5], arg);
+		arg->must_eat = ft_atoi(av[5], arg, 0);
 }
 
 void	loop_init(t_rules *arg, t_philo *philo)

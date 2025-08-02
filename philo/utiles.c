@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utiles.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/02 13:14:22 by atigzim           #+#    #+#             */
+/*   Updated: 2025/08/02 13:14:53 by atigzim          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 int	ft_isdigit(int c)
@@ -7,24 +19,23 @@ int	ft_isdigit(int c)
 	return (0);
 }
 
-void	write_err(t_rules	*philo)
+void	write_err(t_rules *philo)
 {
 	write(2, "ERROR\n", 6);
 	free(philo);
 	exit(1);
 }
 
-long get_time_ms(void)
+long	get_time_ms(void)
 {
-	struct timeval time;
+	struct timeval	time;
+
 	gettimeofday(&time, NULL);
 	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
-int	ft_atoi(const char *str, t_rules *philo)
+int	ft_atoi(const char *str, t_rules *philo, long nb)
 {
-	long	nb;
-
 	int (i), (j);
 	if (!str)
 		return (0);
@@ -51,4 +62,3 @@ int	ft_atoi(const char *str, t_rules *philo)
 		write_err(philo);
 	return ((int)(nb * j));
 }
-
