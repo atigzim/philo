@@ -64,5 +64,6 @@ void	init_all(t_rules *arg)
 	}
 	pthread_mutex_init(&arg->write_lock, NULL);
 	pthread_mutex_init(&arg->someone_died, NULL);
+	pthread_mutex_init(&arg->death, NULL);
 	loop_init(arg, philo);
 }

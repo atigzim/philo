@@ -3,14 +3,15 @@
 void eating(t_philo *philo)
 {
 	pthread_mutex_lock(philo->right_fork);
-	print_message(philo->id, philo, "has taken a right_fork");
 	pthread_mutex_lock(philo->left_fork);
+	print_message(philo->id, philo, "has taken a right_fork");
 	print_message(philo->id, philo, "has taken a left_fork");
 	print_message(philo->id, philo, "eating");
-	usleep(philo->arg->t_eat * 1000);
+	usleep(philo->arg->t_eat * 990);
 	philo->last_meal = get_time_ms();
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
+	philo->meals_eaten++;
 }
 
 void thinking(t_philo *philo)
@@ -41,6 +42,7 @@ void *routine(void *arg)
 	return(NULL);
 	
 }
+
 void create_thread(t_rules *arg)
 {
 	int i;
@@ -66,11 +68,17 @@ void create_thread(t_rules *arg)
 		if (time > philo->arg->t_die)
 		{
 			print_message(philo->id, philo, "is died");
-			break;
+			break ;
 		}
 		if (i < philo->arg->nb_philo - 1)
 			i++;
-			
+		i--;
+		if(philo->arg->must_eat && philo[i].id % 2 != 0)
+		{
+			// pthread_mutex_lock(&philo->arg->write_lock);
+			if (philo[i].meals_eaten >= philo->arg->must_eat)
+				break ;	
+		}
 	}
 }
 

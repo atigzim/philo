@@ -32,6 +32,7 @@ typedef struct s_rules
 	pthread_mutex_t	someone_died;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	write_lock;
+	pthread_mutex_t	death;
 }					t_rules;
 
 int					ft_atoi(const char *str, t_rules *philo);

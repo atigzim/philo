@@ -1,6 +1,6 @@
 CC = cc 
 CFLAGS = -Wall -Wextra -Werror
-SRC = main.c utiles.c parsing.c
+SRC = main.c utiles.c parsing.c utiles2.c
 NAME = philo
 OBJ = $(SRC:.c=.o)
 all : $(NAME)
