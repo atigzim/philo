@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 13:14:18 by atigzim           #+#    #+#             */
-/*   Updated: 2025/08/02 13:30:06 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/08/06 21:28:53 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ typedef struct s_philo
 	int				meals_eaten;
 	long			last_meal;
 	long			start_time;
+	int				loop;
 	struct s_rules	*arg;
+	pthread_mutex_t *detach;
 	pthread_t		thread;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
@@ -41,10 +43,8 @@ typedef struct s_rules
 	int				t_sleep;
 	int				must_eat;
 	t_philo			*philo;
-	pthread_mutex_t	someone_died;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	write_lock;
-	pthread_mutex_t	death;
 }					t_rules;
 
 //   -----------------  parsing of  my programme -----------------  //
@@ -59,6 +59,7 @@ void				write_err(t_rules *philo);
 //   ---------------------------------------------------------  //
 
 void				init_all(t_rules *arg);
+void 				monitor( t_philo *philo);
 long				get_time_ms(void);
 void				print_message(t_philo *philo, char *str);
 

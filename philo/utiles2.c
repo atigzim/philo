@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 13:14:25 by atigzim           #+#    #+#             */
-/*   Updated: 2025/08/02 13:14:26 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/08/02 17:01:44 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,6 @@ void	ft_putstr_fd(char *s, int fd)
 		i++;
 	}
 	write(fd, " ", 1);
-}
-
-void	thinking(t_philo *philo)
-{
-	print_message(philo, "thinking");
 }
 
 void	ft_putchar_fd(char c, int fd)
