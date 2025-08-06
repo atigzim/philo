@@ -6,36 +6,51 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 13:14:06 by atigzim           #+#    #+#             */
-/*   Updated: 2025/08/06 21:17:39 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/08/06 23:21:39 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	detach_th(t_rules *arg)
-{
-	int	i;
+// void	detach_th(t_rules *arg)
+// {
+// 	int	i;
 
+// 	i = 0;
+// 	while (i < arg->nb_philo)
+// 	{
+// 		pthread_detach(arg->philo[i].thread);
+// 		i++;
+// 	}
+// }
+
+void joun(t_rules *arg)
+{
+	int i ;
+	
 	i = 0;
+	
+	// pthread_mutex_lock(&arg->write_lock);
 	while (i < arg->nb_philo)
 	{
-		pthread_detach(arg->philo[i].thread);
+   		pthread_join(arg->philo[i].thread, NULL);
 		i++;
 	}
+	// pthread_mutex_unlock(&arg->write_lock);
 }
 
-void destr(t_rules *arg)
-{
-	int i;
+// void destr(t_rules *arg)
+// {
+// 	int i;
 
-	i = 0;
-	while (i < arg->nb_philo)
-	{
-		pthread_mutex_destroy(&arg->forks[i]);
-		i++;
-	}
-	pthread_mutex_destroy(&arg->write_lock);
-}
+// 	i = 0;
+// 	while (i < arg->nb_philo)
+// 	{
+// 		pthread_mutex_destroy(&arg->forks[i]);
+// 		i++;
+// 	}
+// 	pthread_mutex_destroy(&arg->write_lock);
+// }
 
 
 void	create_thread(t_rules *arg)
@@ -70,9 +85,14 @@ void monitor(t_philo *philo)
 		time = get_time_ms() - philo[i].last_meal;
 		if (time > philo->arg->t_die)
 		{
+			pthread_mutex_lock(&philo->arg->detach);
 			print_message(philo, "is died");
 			pthread_mutex_lock(&philo->arg->write_lock);
+			philo->arg->loop = 0;
+			pthread_mutex_unlock(&philo->arg->detach);
+			pthread_mutex_unlock(&philo->arg->write_lock);
 			break ;
+			
 		}
 		if (i < philo->arg->nb_philo)
 			i++;
@@ -87,7 +107,6 @@ void monitor(t_philo *philo)
 		}
 		usleep(1000);
 	}
-	// usleep(1000000);
 }
 
 int	main(int ac, char **av)
@@ -99,8 +118,9 @@ int	main(int ac, char **av)
 	parsing(av, ac, arg);
 	init_all(arg);
 	create_thread(arg);
-	detach_th(arg);
-	destr(arg);  
+	joun(arg);
+	// detach_th(arg);
+	// destr(arg);  
 	free(arg->forks);
 	free(arg->philo);        
 	free(arg);

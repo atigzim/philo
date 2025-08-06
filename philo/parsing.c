@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 13:14:14 by atigzim           #+#    #+#             */
-/*   Updated: 2025/08/06 21:28:39 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/08/06 23:11:17 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	loop_init(t_rules *arg, t_philo *philo)
 	while (i < arg->nb_philo)
 	{
 		philo[i].id = i + 1;
-		philo[i].loop = 1;
 		philo[i].meals_eaten = 0;
 		philo[i].last_meal = get_time_ms();
 		philo[i].left_fork = &arg->forks[i];
@@ -76,5 +75,7 @@ void	init_all(t_rules *arg)
 		i++;
 	}
 	pthread_mutex_init(&arg->write_lock, NULL);
+	pthread_mutex_init(&arg->detach, NULL);
+	arg->loop = 1;
 	loop_init(arg, philo);
 }

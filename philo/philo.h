@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 13:14:18 by atigzim           #+#    #+#             */
-/*   Updated: 2025/08/06 21:28:53 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/08/06 23:10:58 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ typedef struct s_philo
 	int				meals_eaten;
 	long			last_meal;
 	long			start_time;
-	int				loop;
 	struct s_rules	*arg;
-	pthread_mutex_t *detach;
 	pthread_t		thread;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
@@ -42,7 +40,9 @@ typedef struct s_rules
 	int				t_eat;
 	int				t_sleep;
 	int				must_eat;
+	int				loop;
 	t_philo			*philo;
+	pthread_mutex_t detach;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	write_lock;
 }					t_rules;

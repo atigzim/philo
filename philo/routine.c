@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 17:00:44 by atigzim           #+#    #+#             */
-/*   Updated: 2025/08/06 20:58:46 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/08/06 23:17:58 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*routine(void *arg)
 	philo = (t_philo *)arg;
 	if (philo->id % 2 != 0)
 		usleep(300);
-	while (1)
+	while (philo->arg->loop)
 	{
 		eating(philo);
 		sleeping(philo);
