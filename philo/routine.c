@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 17:00:44 by atigzim           #+#    #+#             */
-/*   Updated: 2025/08/07 17:56:34 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/08/07 19:00:31 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ void	eating(t_philo *philo)
 	usleep(philo->arg->t_eat * 990);
 	pthread_mutex_lock(&philo->arg->meal_lock);
 	philo->last_meal = get_time_ms();
+	philo->meals_eaten++;
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
-	philo->meals_eaten++;
 	pthread_mutex_unlock(&philo->arg->meal_lock);
 }
 

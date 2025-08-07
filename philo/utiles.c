@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 13:14:22 by atigzim           #+#    #+#             */
-/*   Updated: 2025/08/02 13:14:53 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/08/07 18:32:40 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,14 @@ int	ft_atoi(const char *str, t_rules *philo, long nb)
 	if (nb == 0)
 		write_err(philo);
 	return ((int)(nb * j));
+}
+
+int check_loob(t_rules *arg)
+{
+	int	j;
+
+	pthread_mutex_lock(&arg->detach);
+	j = arg->loop;
+	pthread_mutex_unlock(&arg->detach);		
+	return (j);
 }

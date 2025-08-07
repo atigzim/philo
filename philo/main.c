@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 13:14:06 by atigzim           #+#    #+#             */
-/*   Updated: 2025/08/07 17:51:48 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/08/07 19:09:27 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,18 +66,23 @@ void monitor(t_philo *philo)
 			pthread_mutex_lock(&philo->arg->write_lock);
 			break ;	
 		}
-		if (i < philo->arg->nb_philo)
-			i++;
-		i--;
-		if (philo->arg->must_eat && philo[i].id % 2 != 0)
+		if (philo->arg->must_eat)
 		{
+			pthread_mutex_lock(&philo->arg->meal_lock);
 			if (philo[i].meals_eaten >= philo->arg->must_eat)
 			{
-				pthread_mutex_lock(&philo->arg->write_lock);
-				break ;
+				pthread_mutex_lock(&philo->arg->detach);
+				philo->arg->loop = 0;
+				pthread_mutex_unlock(&philo->arg->detach);
+				pthread_mutex_unlock(&philo->arg->meal_lock);
+				break;
 			}
+		pthread_mutex_unlock(&philo->arg->meal_lock);
 		}
-		usleep(1000);
+		if (i == philo->arg->nb_philo -1)
+			i = 0;
+		i++;
+		usleep(500);
 	}
 }
 
