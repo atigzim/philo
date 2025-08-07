@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 17:00:44 by atigzim           #+#    #+#             */
-/*   Updated: 2025/08/07 13:46:30 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/08/07 17:56:34 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	*routine(void *arg)
 	philo = (t_philo *)arg;
 	if (philo->id % 2 != 0)
 		usleep(300);
-	while (philo->arg->loop)
+	while (check_loob(philo->arg))
 	{
 		eating(philo);
 		sleeping(philo);
@@ -30,16 +30,24 @@ void	*routine(void *arg)
 
 void	eating(t_philo *philo)
 {
-	pthread_mutex_lock(philo->right_fork);
-	pthread_mutex_lock(philo->left_fork);
+	if (philo->id % 2 == 0)
+	{
+		pthread_mutex_lock(philo->right_fork);
+		pthread_mutex_lock(philo->left_fork);
+	}
+	else
+	{
+		pthread_mutex_lock(philo->left_fork);
+		pthread_mutex_lock(philo->right_fork);
+	}
 	print_message(philo, "has taken a fork");
 	print_message(philo, "has taken a fork");
 	print_message(philo, "eating");
 	usleep(philo->arg->t_eat * 990);
+	pthread_mutex_lock(&philo->arg->meal_lock);
 	philo->last_meal = get_time_ms();
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
-	pthread_mutex_lock(&philo->arg->meal_lock);
 	philo->meals_eaten++;
 	pthread_mutex_unlock(&philo->arg->meal_lock);
 }

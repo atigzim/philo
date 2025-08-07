@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 13:14:06 by atigzim           #+#    #+#             */
-/*   Updated: 2025/08/07 13:43:54 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/08/07 17:51:48 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,9 @@ void monitor(t_philo *philo)
 	i = 0;
 	while (1)
 	{
+		pthread_mutex_lock(&philo->arg->meal_lock);
 		time = get_time_ms() - philo[i].last_meal;
+		pthread_mutex_unlock(&philo->arg->meal_lock);
 		if (time > philo->arg->t_die)
 		{
 			pthread_mutex_lock(&philo->arg->detach);

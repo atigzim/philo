@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 13:14:18 by atigzim           #+#    #+#             */
-/*   Updated: 2025/08/07 13:40:03 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/08/07 17:35:53 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,6 @@ void				*routine(void *arg);
 void				eating(t_philo *philo);
 void				sleeping(t_philo *philo);
 void				thinking(t_philo *philo);
+int check_loob(t_rules *arg);
 
 #endif

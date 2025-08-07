@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 13:14:25 by atigzim           #+#    #+#             */
-/*   Updated: 2025/08/07 13:39:41 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/08/07 17:35:42 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,15 @@ void	ft_putstr_fd(char *s, int fd)
 	}
 	write(fd, " ", 1);
 }
+int check_loob(t_rules *arg)
+{
+	int	j;
 
+	pthread_mutex_lock(&arg->detach);
+	j = arg->loop;
+	pthread_mutex_unlock(&arg->detach);		
+	return (j);
+}
 void	ft_putchar_fd(char c, int fd)
 {
 	write(fd, &c, 1);
@@ -59,7 +67,7 @@ void	ft_putnbr_fd(long n, int fd)
 
 void	print_message(t_philo *philo, char *str)
 {
-	if(philo->arg->loop)
+	if(check_loob(philo->arg))
 	{
 		pthread_mutex_lock(&philo->arg->write_lock);
 		ft_putnbr_fd(get_time_ms() - philo->start_time, 1);
