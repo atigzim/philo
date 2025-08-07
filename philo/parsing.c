@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 13:14:14 by atigzim           #+#    #+#             */
-/*   Updated: 2025/08/06 23:11:17 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/08/07 12:15:37 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	init_all(t_rules *arg)
 		i++;
 	}
 	pthread_mutex_init(&arg->write_lock, NULL);
+	pthread_mutex_init(&arg->meal_lock, NULL);
 	pthread_mutex_init(&arg->detach, NULL);
 	arg->loop = 1;
 	loop_init(arg, philo);

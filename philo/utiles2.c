@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 13:14:25 by atigzim           #+#    #+#             */
-/*   Updated: 2025/08/02 17:01:44 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/08/07 13:39:41 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,21 @@ void	ft_putnbr_fd(long n, int fd)
 }
 
 void	print_message(t_philo *philo, char *str)
+{
+	if(philo->arg->loop)
+	{
+		pthread_mutex_lock(&philo->arg->write_lock);
+		ft_putnbr_fd(get_time_ms() - philo->start_time, 1);
+		write(1, " ", 1);
+		ft_putnbr_fd(philo->id, 1);
+		write(1, " ", 1);
+		ft_putstr_fd(str, 1);
+		ft_putchar_fd('\n', 1);
+		pthread_mutex_unlock(&philo->arg->write_lock);	
+	}
+}
+
+void print_isdied(t_philo *philo, char *str)
 {
 	pthread_mutex_lock(&philo->arg->write_lock);
 	ft_putnbr_fd(get_time_ms() - philo->start_time, 1);

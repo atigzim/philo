@@ -6,7 +6,7 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 13:14:18 by atigzim           #+#    #+#             */
-/*   Updated: 2025/08/06 23:10:58 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/08/07 13:40:03 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_rules
 	int				must_eat;
 	int				loop;
 	t_philo			*philo;
+	pthread_mutex_t meal_lock;
 	pthread_mutex_t detach;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	write_lock;
@@ -62,6 +63,7 @@ void				init_all(t_rules *arg);
 void 				monitor( t_philo *philo);
 long				get_time_ms(void);
 void				print_message(t_philo *philo, char *str);
+void 				print_isdied(t_philo *philo, char *str);
 
 //   -----------------  routine of  my philo -----------------  //
 //   ---------------------------------------------------------  //
