@@ -6,21 +6,20 @@
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/02 13:14:06 by atigzim           #+#    #+#             */
-/*   Updated: 2025/08/07 19:09:27 by atigzim          ###   ########.fr       */
+/*   Updated: 2025/08/08 20:31:59 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void joun(t_rules *arg)
+void	joun(t_rules *arg)
 {
-	int i ;
-	
+	int	i;
+
 	i = 0;
-	
 	while (i < arg->nb_philo)
 	{
-   		pthread_join(arg->philo[i].thread, NULL);
+		pthread_join(arg->philo[i].thread, NULL);
 		i++;
 	}
 }
@@ -43,46 +42,34 @@ void	create_thread(t_rules *arg)
 		i++;
 	}
 	monitor(philo);
-
 }
 
-void monitor(t_philo *philo)
+void	one_philo_t(t_philo *philo)
 {
-	int	i;
-	long	time;
-
-	i = 0;
-	while (1)
+	if (pthread_create(&philo[0].thread, NULL, routine, &philo[0]) != 0)
 	{
-		pthread_mutex_lock(&philo->arg->meal_lock);
-		time = get_time_ms() - philo[i].last_meal;
-		pthread_mutex_unlock(&philo->arg->meal_lock);
-		if (time > philo->arg->t_die)
-		{
-			pthread_mutex_lock(&philo->arg->detach);
-			philo->arg->loop = 0;
-			print_isdied(philo, "is died");
-			pthread_mutex_unlock(&philo->arg->detach);
-			pthread_mutex_lock(&philo->arg->write_lock);
-			break ;	
-		}
-		if (philo->arg->must_eat)
-		{
-			pthread_mutex_lock(&philo->arg->meal_lock);
-			if (philo[i].meals_eaten >= philo->arg->must_eat)
-			{
-				pthread_mutex_lock(&philo->arg->detach);
-				philo->arg->loop = 0;
-				pthread_mutex_unlock(&philo->arg->detach);
-				pthread_mutex_unlock(&philo->arg->meal_lock);
-				break;
-			}
-		pthread_mutex_unlock(&philo->arg->meal_lock);
-		}
-		if (i == philo->arg->nb_philo -1)
-			i = 0;
-		i++;
-		usleep(500);
+		printf("Failed to join thread for philo 1\n");
+		return ;
+	}
+	if (pthread_join(philo[0].thread, NULL))
+	{
+		printf("Failed to join thread for philo 1\n");
+		return ;
+	}
+}
+
+void	one_philo(t_rules *arg)
+{
+	if (arg->nb_philo == 1)
+	{
+		printf("0 1 has taken a fork\n");
+		usleep(arg->t_die * 1000);
+		printf("%d  1  is died", arg->t_die);
+		joun(arg);
+		free(arg->forks);
+		free(arg->philo);
+		free(arg);
+		exit(1);
 	}
 }
 
@@ -94,9 +81,14 @@ int	main(int ac, char **av)
 	memset(arg, 0, sizeof(t_rules));
 	parsing(av, ac, arg);
 	init_all(arg);
+	if (arg->nb_philo == 1)
+	{
+		one_philo_t(arg->philo);
+		one_philo(arg);
+	}
 	create_thread(arg);
-	joun(arg);  
+	joun(arg);
 	free(arg->forks);
-	free(arg->philo);        
+	free(arg->philo);
 	free(arg);
 }

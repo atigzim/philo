@@ -59,7 +59,7 @@ void	ft_putnbr_fd(long n, int fd)
 
 void	print_message(t_philo *philo, char *str)
 {
-	if(check_loob(philo->arg))
+	if (check_loob(philo->arg))
 	{
 		pthread_mutex_lock(&philo->arg->write_lock);
 		ft_putnbr_fd(get_time_ms() - philo->start_time, 1);
@@ -68,11 +68,11 @@ void	print_message(t_philo *philo, char *str)
 		write(1, " ", 1);
 		ft_putstr_fd(str, 1);
 		ft_putchar_fd('\n', 1);
-		pthread_mutex_unlock(&philo->arg->write_lock);	
+		pthread_mutex_unlock(&philo->arg->write_lock);
 	}
 }
 
-void print_isdied(t_philo *philo, char *str)
+void	print_isdied(t_philo *philo, char *str)
 {
 	pthread_mutex_lock(&philo->arg->write_lock);
 	ft_putnbr_fd(get_time_ms() - philo->start_time, 1);
