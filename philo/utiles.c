@@ -5,34 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/02 13:14:22 by atigzim           #+#    #+#             */
-/*   Updated: 2025/08/08 20:33:07 by atigzim          ###   ########.fr       */
+/*   Created: 2025/08/09 17:59:01 by atigzim           #+#    #+#             */
+/*   Updated: 2025/08/11 15:43:37 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-int	ft_isdigit(int c)
-{
-	if ((c >= 48 && c <= 57) || c == 32)
-		return (1);
-	return (0);
-}
-
-void	write_err(t_rules *philo)
-{
-	write(2, "ERROR\n", 6);
-	free(philo);
-	exit(1);
-}
-
-long	get_time_ms(void)
-{
-	struct timeval	time;
-
-	gettimeofday(&time, NULL);
-	return (time.tv_sec * 1000 + time.tv_usec / 1000);
-}
 
 int	ft_atoi(const char *str, t_rules *philo, long nb)
 {
@@ -63,12 +41,54 @@ int	ft_atoi(const char *str, t_rules *philo, long nb)
 	return ((int)(nb * j));
 }
 
-int	check_loob(t_rules *arg)
+void	ft_putstr_fd(char *s, int fd)
 {
-	int	j;
+	int	i;
 
-	pthread_mutex_lock(&arg->detach);
-	j = arg->loop;
-	pthread_mutex_unlock(&arg->detach);
-	return (j);
+	i = 0;
+	if (!s)
+		return ;
+	while (s[i])
+	{
+		write(fd, s + i, 1);
+		i++;
+	}
+	write(fd, " ", 1);
+}
+
+void	ft_putchar_fd(char c, int fd)
+{
+	write(fd, &c, 1);
+}
+
+void	ft_putnbr_fd(long n, int fd)
+{
+	{
+		if (n == -2147483648)
+		{
+			ft_putnbr_fd(n / 10, fd);
+			ft_putchar_fd('8', fd);
+		}
+		else if (n < 0)
+		{
+			ft_putchar_fd('-', fd);
+			ft_putnbr_fd(-n, fd);
+		}
+		else if (n > 9)
+		{
+			ft_putnbr_fd(n / 10, fd);
+			ft_putnbr_fd(n % 10, fd);
+		}
+		else if (n <= 9)
+		{
+			ft_putchar_fd((n + '0'), fd);
+		}
+	}
+}
+
+int	ft_isdigit(int c)
+{
+	if ((c >= 48 && c <= 57) || c == 32)
+		return (1);
+	return (0);
 }

@@ -1,6 +1,6 @@
 CC = cc 
-CFLAGS = -Wall -Wextra -Werror 
-SRC = main.c utiles.c parsing.c utiles2.c routine.c
+CFLAGS = -Wall -Wextra -Werror -fsanitize=thread
+SRC = main.c utiles.c parsing.c utiles2.c routine.c routine_utiles.c philo.c
 NAME = philo
 OBJ = $(SRC:.c=.o)
 all : $(NAME)

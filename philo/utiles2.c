@@ -5,61 +5,41 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: atigzim <atigzim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/02 13:14:25 by atigzim           #+#    #+#             */
-/*   Updated: 2025/08/07 18:32:23 by atigzim          ###   ########.fr       */
+/*   Created: 2025/08/09 18:04:01 by atigzim           #+#    #+#             */
+/*   Updated: 2025/08/09 18:05:07 by atigzim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ft_putstr_fd(char *s, int fd)
+void	write_err(t_rules *philo)
 {
-	int	i;
-
-	i = 0;
-	if (!s)
-		return ;
-	while (s[i])
-	{
-		write(fd, s + i, 1);
-		i++;
-	}
-	write(fd, " ", 1);
+	write(2, "ERROR\n", 6);
+	free(philo);
+	exit(1);
 }
 
-void	ft_putchar_fd(char c, int fd)
+int	check_loob(t_philo *philo)
 {
-	write(fd, &c, 1);
+	int	j;
+
+	pthread_mutex_lock(&philo->arg->detach);
+	j = philo->loop;
+	pthread_mutex_unlock(&philo->arg->detach);
+	return (j);
 }
 
-void	ft_putnbr_fd(long n, int fd)
+long	get_time_ms(void)
 {
-	{
-		if (n == -2147483648)
-		{
-			ft_putnbr_fd(n / 10, fd);
-			ft_putchar_fd('8', fd);
-		}
-		else if (n < 0)
-		{
-			ft_putchar_fd('-', fd);
-			ft_putnbr_fd(-n, fd);
-		}
-		else if (n > 9)
-		{
-			ft_putnbr_fd(n / 10, fd);
-			ft_putnbr_fd(n % 10, fd);
-		}
-		else if (n <= 9)
-		{
-			ft_putchar_fd((n + '0'), fd);
-		}
-	}
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
 void	print_message(t_philo *philo, char *str)
 {
-	if (check_loob(philo->arg))
+	if (check_loob(philo))
 	{
 		pthread_mutex_lock(&philo->arg->write_lock);
 		ft_putnbr_fd(get_time_ms() - philo->start_time, 1);
